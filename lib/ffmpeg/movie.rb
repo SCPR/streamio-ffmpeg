@@ -19,6 +19,7 @@ module FFMPEG
       output = Open3.popen3(command) do |stdin, stdout, stderr| 
         if path.is_a?(IO) || path.is_a?(Tempfile)
           begin
+            stdin.set_encoding("ASCII-8BIT")
             stdin << path.read
             path.rewind if path.respond_to?(:rewind)
             stdin.close_write
